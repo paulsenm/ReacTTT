@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import Status from './components/Status';
+import Square from './components/Square';
 
 class App extends Component {
   constructor (props) {
@@ -49,15 +51,25 @@ renderSquare(i){
   this.state.winner === this.state.squares[i]) &&
   this.state.winningLine.includes(i) ? 
   "square-winner" : "square-full";
-    const enabled = (this.state.winner == null && this.state.squares[i] == null) ? true : false;
-    const eventHandler = (enabled)? this.handleClick : () => {} ;
-    const output = 
-        <div className={className} 
-          id={i}
-          onClick={eventHandler}>
-          {(this.state.squares[i] != null) ? this.state.squares[i] : ""}
-        </div>;   
-    return output;
+  const enabled = (this.state.winner == null && this.state.squares[i] == null) ? true : false;
+  const eventHandler = (enabled)? this.handleClick : () => {} ;
+  const value =  (this.state.squares[i] != null) ? this.state.squares[i] : "";
+  return (
+    <Square
+      className = {className}
+      value={value}
+      eventHandler={eventHandler}
+      index={i}
+      />
+  );
+
+    // const output = 
+    //     <div className={className} 
+    //       id={i}
+    //       onClick={eventHandler}>
+    //       {(this.state.squares[i] != null) ? this.state.squares[i] : ""}
+    //     </div>;   
+    //return output;
 }
 
 calculateWinner(squares) {
@@ -82,7 +94,7 @@ calculateWinner(squares) {
 
     const output =  
       <div>
-        <div className="status">{status}</div>
+        <Status status = {status} />
         <div className="board-row">
           {this.renderSquare(0)}{this.renderSquare(1)}{this.renderSquare(2)}
         </div>
