@@ -7,7 +7,7 @@ function Square({className, index, eventHandler, value}){
             {value}
 
         </div>
-    )
+    );
 }
 
 export default Square;
